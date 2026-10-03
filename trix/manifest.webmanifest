@@ -1,0 +1,26 @@
+{
+  "name": "Trix — Gift Card Wallet",
+  "short_name": "Trix",
+  "description": "Buy, sell and redeem tradable gift cards. Check a code, redeem it to your wallet, and track your balance.",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "theme_color": "#0d1420",
+  "background_color": "#0d1420",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["finance", "shopping", "utilities"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Redeem a code", "short_name": "Redeem", "url": "./index.html#redeem" },
+    { "name": "Check a code", "short_name": "Check", "url": "./index.html#validate" }
+  ]
+}

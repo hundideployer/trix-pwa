@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Trix — Gift Card Wallet</title>
+<meta name="description" content="Trix — buy, sell and redeem tradable gift cards. Installable app.">
+<meta name="theme-color" content="#0d1420">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="icon" href="icons/favicon-16.png" sizes="16x16">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Trix">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="offline-banner" class="offline-banner" hidden>You are offline — showing the cached app shell.</div>
+<div id="api-error" class="api-error" hidden></div>
+
+<header class="topbar">
+  <div class="brand">
+    <img src="icons/icon-192.png" alt="" class="brand-mark">
+    <div class="brand-text">
+      <strong>Trix</strong>
+      <span id="brand-sub">Gift Card Wallet</span>
+    </div>
+  </div>
+  <div class="topbar-actions">
+    <button id="install-btn" class="btn btn-install" hidden>Install</button>
+    <button id="settings-btn" class="icon-btn" aria-label="Settings" title="Settings">⚙</button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- WALLET -->
+  <section class="view" id="view-wallet">
+    <div class="balance-card">
+      <div class="balance-label">Wallet balance</div>
+      <div class="balance-value" id="balance-value">$0.00</div>
+      <div class="balance-meta">
+        <span class="tier-chip" id="tier-chip">—</span>
+        <span class="muted" id="lifetime">Lifetime $0.00</span>
+      </div>
+      <div class="balance-user muted" id="wallet-user">Not signed in</div>
+    </div>
+    <div class="api-chip muted small" id="api-base-line">API → resolving…</div>
+    <h2 class="section-title">Recent activity</h2>
+    <ul class="ledger" id="ledger"><li class="empty">No activity yet.</li></ul>
+  </section>
+
+  <!-- REDEEM -->
+  <section class="view" id="view-redeem" hidden>
+    <h2 class="section-title">Redeem a code</h2>
+    <p class="muted">Enter the code from your Trix gift card. Dashes are optional.</p>
+    <label class="field">
+      <span>Gift card code</span>
+      <input id="redeem-code" inputmode="text" autocapitalize="characters" autocomplete="off"
+             placeholder="TX-50-XXXX-XXXX-XXXX-XX">
+    </label>
+    <button id="redeem-btn" class="btn btn-primary btn-block">Redeem to wallet</button>
+    <div id="redeem-result" class="result" hidden></div>
+  </section>
+
+  <!-- VALIDATE -->
+  <section class="view" id="view-validate" hidden>
+    <h2 class="section-title">Check a code</h2>
+    <p class="muted">Verify a code is real and still active — without spending it.</p>
+    <label class="field">
+      <span>Gift card code</span>
+      <input id="validate-code" inputmode="text" autocapitalize="characters" autocomplete="off"
+             placeholder="TX-50-XXXX-XXXX-XXXX-XX">
+    </label>
+    <button id="validate-btn" class="btn btn-primary btn-block">Check code</button>
+    <div id="validate-result" class="result" hidden></div>
+  </section>
+
+  <!-- OPERATOR -->
+  <section class="view" id="view-operator" hidden>
+    <h2 class="section-title">Operator</h2>
+    <p class="muted">Mint a batch of Trix own-brand cards (admin).</p>
+    <div class="row">
+      <label class="field"><span>Denomination (USD)</span>
+        <input id="mint-denom" type="number" value="50" min="20" max="2000" step="1"></label>
+      <label class="field"><span>Quantity</span>
+        <input id="mint-qty" type="number" value="3" min="1" max="50000" step="1"></label>
+    </div>
+    <button id="mint-btn" class="btn btn-primary btn-block">Mint batch</button>
+    <div id="mint-result" class="result" hidden></div>
+  </section>
+</main>
+
+<nav class="tabbar">
+  <button class="tab is-active" data-view="wallet"><span>◈</span>Wallet</button>
+  <button class="tab" data-view="redeem"><span>＋</span>Redeem</button>
+  <button class="tab" data-view="validate"><span>✓</span>Check</button>
+  <button class="tab" data-view="operator"><span>⚙</span>Operator</button>
+</nav>
+
+<!-- SETTINGS SHEET -->
+<div class="sheet-backdrop" id="sheet-backdrop" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="Settings">
+    <div class="sheet-head">
+      <strong>Settings</strong>
+      <button id="sheet-close" class="icon-btn" aria-label="Close">✕</button>
+    </div>
+    <label class="field">
+      <span>API base URL (leave blank to use config.js)</span>
+      <input id="api-base" placeholder="https://api.trix.example.com">
+    </label>
+    <p class="muted small" style="margin-top:-4px">Default comes from <code>config.js</code> — edit that one line to ship a hosted API. A value typed here overrides it on this device only.</p>
+    <label class="field">
+      <span>Your email (creates/loads your wallet)</span>
+      <input id="user-email" type="email" placeholder="you@example.com">
+    </label>
+    <label class="field">
+      <span>Admin key (operator only)</span>
+      <input id="admin-key" placeholder="dev-admin-key">
+    </label>
+    <button id="save-settings" class="btn btn-primary btn-block">Save</button>
+    <button id="test-api" class="btn btn-ghost btn-block">Test connection</button>
+    <div id="api-status" class="result" hidden></div>
+    <p class="muted small">Trix v0.1.0 · dev build. Identity uses the dev header <code>X-User-Email</code>.</p>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script src="../config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
