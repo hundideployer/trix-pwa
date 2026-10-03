@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tiki Talker — Voice Notes</title>
+<meta name="description" content="Tiki Talker — record and play back voice notes. Installable app.">
+<meta name="theme-color" content="#141d2e">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="icon" href="icons/favicon-16.png" sizes="16x16">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tiki Talker">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="offline-banner" class="offline-banner" hidden>Offline — cached shell. Recording still works.</div>
+
+<header class="topbar">
+  <div class="brand">
+    <img src="icons/icon-192.png" alt="" class="brand-mark">
+    <div class="brand-text"><strong>Tiki Talker</strong><span>Voice notes</span></div>
+  </div>
+  <button id="install-btn" class="btn btn-install" hidden>Install</button>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="pulse" id="pulse"><span>🎙</span></div>
+    <div class="timer" id="timer">00:00</div>
+    <p class="muted" id="hint">Tap the mic to record a voice note.</p>
+  </div>
+
+  <button id="record-btn" class="btn btn-primary btn-block">Start recording</button>
+  <button id="stop-btn" class="btn btn-ghost btn-block" hidden>Stop &amp; save</button>
+
+  <h2 class="section-title">Your notes</h2>
+  <ul class="notes" id="notes"><li class="empty">No voice notes yet.</li></ul>
+</main>
+
+<div id="toast" class="toast" hidden></div>
+<script src="../config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
