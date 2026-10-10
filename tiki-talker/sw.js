@@ -1,6 +1,6 @@
 /* Tiki Talker service worker — offline app shell. */
 /* ../config.js is precached so the shared API base survives offline too. */
-const VERSION = "tiki-v2";
+const VERSION = "tiki-v3";
 const SHELL = [
   "./", "./index.html", "./styles.css", "../config.js", "./app.js", "./manifest.webmanifest",
   "./icons/icon-192.png", "./icons/icon-512.png",

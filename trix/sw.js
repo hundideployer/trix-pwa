@@ -6,7 +6,7 @@
  *   - API calls (/api/): network-only (never serve stale money data).
  *   - Cross-origin API calls (hosted API base): passthrough, always live.
  */
-const VERSION = "trix-v2";
+const VERSION = "trix-v3";
 const SHELL = [
   "./",
   "./index.html",

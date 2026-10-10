@@ -18,7 +18,7 @@
  * A per-device override saved in the app's Settings sheet still wins over this
  * file, so a tester can repoint the app without a redeploy.
  * ==========================================================================*/
-window.TRIX_API_BASE = "";
+window.TRIX_API_BASE = "https://8000-fecce6fe-1281-4797-b6f0-fa327f894a92.daytonaproxy01.net";
 
 /* ---------------------------------------------------------------------------
  * Shared resolver — used by BOTH apps (Trix and Tiki Talker).
